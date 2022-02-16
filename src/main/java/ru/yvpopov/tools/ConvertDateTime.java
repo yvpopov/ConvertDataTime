@@ -26,60 +26,104 @@ public class ConvertDateTime {
         return this;
     }
 
+    public static ConvertDateTime getInstace() {
+        return new ConvertDateTime();
+    }
+
     public ConvertDateTime() {
         this.instant = Instant.now();
         zone = ZoneId.systemDefault().getRules().getOffset(Instant.now());
     }
 
-    public ConvertDateTime(Instant instant) {
-        this();
-        this.instant = instant;
+    public static ConvertDateTime getInstace(Instant value) {
+        return new ConvertDateTime(value);
     }
 
-    public ConvertDateTime(Calendar calendar) {
+    public ConvertDateTime(Instant value) {
         this();
-        this.instant = calendar.toInstant();
+        this.instant = value;
     }
 
-    public ConvertDateTime(java.util.Date date) {
-        this();
-        this.instant = date.toInstant();
+    public static ConvertDateTime getInstace(Calendar value) {
+        return new ConvertDateTime(value);
     }
 
-    public ConvertDateTime(java.sql.Date sqldate) {
+    public ConvertDateTime(Calendar value) {
         this();
-        this.instant = sqldate.toInstant();
+        this.instant = value.toInstant();
     }
 
-    public ConvertDateTime(OffsetDateTime offsetDateTime) {
-        this();
-        this.instant = offsetDateTime.toInstant();
+    public static ConvertDateTime getInstace(java.util.Date value) {
+        return new ConvertDateTime(value);
     }
 
-    public ConvertDateTime(ZonedDateTime zonedDateTime) {
+    public ConvertDateTime(java.util.Date value) {
         this();
-        this.instant = zonedDateTime.toInstant();
+        this.instant = value.toInstant();
     }
 
-    public ConvertDateTime(LocalDateTime localDateTime) {
-        this();
-        this.instant = localDateTime.toInstant(zone);
+    public static ConvertDateTime getInstace(java.sql.Date value) {
+        return new ConvertDateTime(value);
     }
 
-    public ConvertDateTime(LocalDateTime localDateTime, ZoneOffset zone) {
+    public ConvertDateTime(java.sql.Date value) {
+        this();
+        this.instant = value.toInstant();
+    }
+
+    public static ConvertDateTime getInstace(OffsetDateTime value) {
+        return new ConvertDateTime(value);
+    }
+
+    public ConvertDateTime(OffsetDateTime value) {
+        this();
+        this.instant = value.toInstant();
+    }
+
+    public static ConvertDateTime getInstace(ZonedDateTime value) {
+        return new ConvertDateTime(value);
+    }
+
+    public ConvertDateTime(ZonedDateTime value) {
+        this();
+        this.instant = value.toInstant();
+    }
+
+    public static ConvertDateTime getInstace(LocalDateTime value) {
+        return new ConvertDateTime(value);
+    }
+
+    public ConvertDateTime(LocalDateTime value) {
+        this();
+        this.instant = value.toInstant(zone);
+    }
+
+    public static ConvertDateTime getInstace(LocalDateTime value, ZoneOffset zone) {
+        return new ConvertDateTime(value, zone);
+    }
+
+    public ConvertDateTime(LocalDateTime value, ZoneOffset zone) {
         this();
         this.zone = zone;
-        this.instant = localDateTime.toInstant(this.zone);
+        this.instant = value.toInstant(this.zone);
     }
 
-    public ConvertDateTime(java.sql.Timestamp sqltimestamp) {
-        this();
-        this.instant = sqltimestamp.toInstant();
+    public static ConvertDateTime getInstace(java.sql.Timestamp value) {
+        return new ConvertDateTime(value);
     }
 
-    public ConvertDateTime(com.google.protobuf.Timestamp timestamp) {
+    public ConvertDateTime(java.sql.Timestamp value) {
         this();
-        this.instant = Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos());
+        this.instant = value.toInstant();
+    }
+
+    public static ConvertDateTime getInstace(com.google.protobuf.Timestamp value) {
+        return new ConvertDateTime(value);
+    }
+
+    public ConvertDateTime(com.google.protobuf.Timestamp value) {
+        this();
+        this.instant = Instant.ofEpochSecond(value.getSeconds(), value.getNanos());
     }
 
     public java.time.Instant toInstant() {
@@ -167,11 +211,11 @@ public class ConvertDateTime {
         return this.plus(amountToAdd * -1L, unit);
     }
 
-    
     public static int Compare(com.google.protobuf.Timestamp x, com.google.protobuf.Timestamp y) {
         int a = Long.compare(x.getSeconds(), y.getSeconds());
-        if (a == 0) 
-            a = Integer.compare(x.getNanos(),y.getNanos());
+        if (a == 0) {
+            a = Integer.compare(x.getNanos(), y.getNanos());
+        }
         return a;
     }
 
