@@ -169,40 +169,43 @@ public class ConvertDateTime {
         Calendar cl1;
         Calendar cl2;
         switch (unit) {
-            case WEEKS -> {
+            case WEEKS: {
                 return this.plus(amountToAdd * 7, ChronoUnit.DAYS);
             }
-            case MONTHS -> {
+            case MONTHS: {
                 cl1 = Calendar.getInstance();
                 cl2 = Calendar.getInstance();
                 cl2.setTimeInMillis(cl1.getTimeInMillis());
                 cl2.add(Calendar.MONTH, (int) amountToAdd);
                 return this.plus((cl2.getTimeInMillis() - cl1.getTimeInMillis()), ChronoUnit.MILLIS);
             }
-            case YEARS -> {
+            case YEARS: {
                 cl1 = Calendar.getInstance();
                 cl2 = Calendar.getInstance();
                 cl2.setTimeInMillis(cl1.getTimeInMillis());
                 cl2.add(Calendar.YEAR, (int) amountToAdd);
                 return this.plus((cl2.getTimeInMillis() - cl1.getTimeInMillis()), ChronoUnit.MILLIS);
             }
-            case DECADES -> {
+            case DECADES: {
                 return this.plus(amountToAdd * 10, ChronoUnit.YEARS);
             }
-            case CENTURIES -> {
+            case CENTURIES: {
                 return this.plus(amountToAdd * 100, ChronoUnit.YEARS);
             }
-            case MILLENNIA -> {
+            case MILLENNIA: {
                 return this.plus(amountToAdd * 1000, ChronoUnit.YEARS);
             }
-            case ERAS -> {
+            case ERAS: {
                 return this.plus(amountToAdd, ChronoUnit.FOREVER);
             }
-            case FOREVER -> {
+            case FOREVER: {
                 this.instant = (amountToAdd > 0 ? java.time.Instant.MAX : java.time.Instant.MIN);
+                break;
             }
-            default ->
+            default: {
                 instant = instant.plus(amountToAdd, unit);
+                break;
+            }
         }
         return this;
     }
