@@ -214,12 +214,14 @@ public class ConvertDateTime {
         return this.plus(amountToAdd * -1L, unit);
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return the value 0 if x == y; a value less than 0 if x < y; and a value greater than 0 if x > y
+     */
     public static int Compare(com.google.protobuf.Timestamp x, com.google.protobuf.Timestamp y) {
-        int a = Long.compare(x.getSeconds(), y.getSeconds());
-        if (a == 0) {
-            a = Integer.compare(x.getNanos(), y.getNanos());
-        }
-        return a;
+        return ru.yvpopov.tools.Helper.Compare(x.getSeconds(), x.getNanos(), y.getSeconds(), y.getNanos());
     }
 
     @Override
