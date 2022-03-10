@@ -1,12 +1,12 @@
 package ru.yvpopov.tools;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -388,11 +388,15 @@ public class ConvertDateTime {
 
     /**
      *
-     * @param Format (DateTimeFormatter.ofPattern(Format))
+     * @param Format (SimpleDateFormat)
      * @return
      */
     public String toString(String Format) {
-        return DateTimeFormatter.ofPattern(Format).format(instant);
+        return toString(new SimpleDateFormat(Format));
+    }
+
+    public String toString(SimpleDateFormat Format) {
+        return Format.format(toDate());
     }
     
 }
