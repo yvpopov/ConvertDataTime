@@ -6,6 +6,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,151 +18,301 @@ public class ConvertDateTime {
 
     ZoneOffset zone;
 
+    /**
+     *
+     * @return
+     */
     public ZoneId getZone() {
         return zone;
     }
 
+    /**
+     *
+     * @param zone
+     * @return
+     */
     public ConvertDateTime setZone(ZoneOffset zone) {
         this.zone = zone;
         return this;
     }
 
+    /**
+     *
+     * @return
+     */
     public static ConvertDateTime getInstace() {
         return new ConvertDateTime();
     }
 
+    /**
+     *
+     */
     public ConvertDateTime() {
         this.instant = Instant.now();
         zone = ZoneId.systemDefault().getRules().getOffset(Instant.now());
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(Instant value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(Instant value) {
         this();
         this.instant = value;
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(Calendar value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(Calendar value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(java.util.Date value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(java.util.Date value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(java.sql.Date value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(java.sql.Date value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(OffsetDateTime value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(OffsetDateTime value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(ZonedDateTime value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(ZonedDateTime value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(LocalDateTime value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(LocalDateTime value) {
         this();
         this.instant = value.toInstant(zone);
     }
 
+    /**
+     *
+     * @param value
+     * @param zone
+     * @return
+     */
     public static ConvertDateTime getInstace(LocalDateTime value, ZoneOffset zone) {
         return new ConvertDateTime(value, zone);
     }
 
+    /**
+     *
+     * @param value
+     * @param zone
+     */
     public ConvertDateTime(LocalDateTime value, ZoneOffset zone) {
         this();
         this.zone = zone;
         this.instant = value.toInstant(this.zone);
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(java.sql.Timestamp value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(java.sql.Timestamp value) {
         this();
         this.instant = value.toInstant();
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public static ConvertDateTime getInstace(com.google.protobuf.Timestamp value) {
         return new ConvertDateTime(value);
     }
 
+    /**
+     *
+     * @param value
+     */
     public ConvertDateTime(com.google.protobuf.Timestamp value) {
         this();
         this.instant = Instant.ofEpochSecond(value.getSeconds(), value.getNanos());
     }
 
+    /**
+     *
+     * @return
+     */
     public java.time.Instant toInstant() {
         return this.instant;
     }
 
+    /**
+     *
+     * @return
+     */
     public java.util.Calendar toCalendar() {
         return GregorianCalendar.from(toZonedDateTime());
     }
 
+    /**
+     *
+     * @return
+     */
     public java.util.Date toDate() {
         return Date.from(instant);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.sql.Date toSqlDate() {
         return new java.sql.Date(toDate().getTime());
     }
 
+    /**
+     *
+     * @return
+     */
     public java.sql.Timestamp toSqlTimestamp() {
         return java.sql.Timestamp.from(instant);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.time.OffsetDateTime toOffsetDateTime() {
         return java.time.OffsetDateTime.ofInstant(instant, zone);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.time.ZonedDateTime toZonedDateTime() {
         return ZonedDateTime.ofInstant(instant, zone);
     }
 
+    /**
+     *
+     * @return
+     */
     public java.time.LocalDateTime toLocalDateTime() {
         return java.time.LocalDateTime.ofInstant(instant, zone);
     }
 
+    /**
+     *
+     * @return
+     */
     public com.google.protobuf.Timestamp toTimestamp() {
         return com.google.protobuf.Timestamp.newBuilder().setSeconds(instant.getEpochSecond()).setNanos(instant.getNano()).build();
     }
 
+    /**
+     *
+     * @param amountToAdd
+     * @param unit
+     * @return
+     */
     public ConvertDateTime plus(long amountToAdd, ChronoUnit unit) {
         if (amountToAdd == 0) {
             return this;
@@ -210,6 +361,12 @@ public class ConvertDateTime {
         return this;
     }
 
+    /**
+     *
+     * @param amountToAdd
+     * @param unit
+     * @return
+     */
     public ConvertDateTime minus(long amountToAdd, ChronoUnit unit) {
         return this.plus(amountToAdd * -1L, unit);
     }
@@ -229,4 +386,13 @@ public class ConvertDateTime {
         return instant.toString();
     }
 
+    /**
+     *
+     * @param Format (DateTimeFormatter.ofPattern(Format))
+     * @return
+     */
+    public String toString(String Format) {
+        return DateTimeFormatter.ofPattern(Format).format(instant);
+    }
+    
 }
