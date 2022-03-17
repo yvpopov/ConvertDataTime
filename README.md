@@ -19,7 +19,7 @@
         &lt;dependency&gt;
             &lt;groupId&gt;ru.yvpopov&lt;/groupId&gt;
             &lt;artifactId&gt;ConvertDataTime&lt;/artifactId&gt;
-            &lt;version&gt;1.5.4&lt;/version&gt;
+            &lt;version&gt;1.5.5&lt;/version&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
 </code></pre>

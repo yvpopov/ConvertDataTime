@@ -1,5 +1,6 @@
 package ru.yvpopov.tools;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -229,6 +230,27 @@ public class ConvertDateTime {
     /**
      *
      * @param value
+     * @param Format (SimpleDateFormat)
+     * @throws ParseException
+     */
+    public ConvertDateTime(String value, String Format) throws ParseException {
+        this(new SimpleDateFormat(Format).parse(value));
+    }
+
+    /**
+     *
+     * @param value
+     * @param Format (SimpleDateFormat)
+     * @return
+     * @throws ParseException
+     */
+    public static ConvertDateTime getInstace(String value, String Format) throws ParseException {
+        return new ConvertDateTime(value,Format);
+    }
+    
+    /**
+     *
+     * @param value
      */
     public ConvertDateTime(com.google.protobuf.Timestamp value) {
         this();
@@ -395,6 +417,11 @@ public class ConvertDateTime {
         return toString(new SimpleDateFormat(Format));
     }
 
+    /**
+     *
+     * @param Format (SimpleDateFormat)
+     * @return
+     */
     public String toString(SimpleDateFormat Format) {
         return Format.format(toDate());
     }
